@@ -1,6 +1,7 @@
 import streamlit as st
-from fun_finance import *
 import pandas as pd
+from BSM import Pricer
+from fun_finance import *
 
 ## Set up of Streamlit Interface
 st.title('Financial Dashboard')
@@ -37,18 +38,32 @@ if add_selectbox == 'Pricing Simulator':
     elif option == 'European':
         option_c_or_p = st.selectbox('Call or Put', ('Call', 'Put'))
         st.header('Enter parameters for your option')
-        c1, c2, c3, c4 = st.beta_columns(4)
+        c1, c2, c3, c4, c5, c6 = st.columns(6)
         with c1:
-            K = st.text_input('Strike Price: ')
-        with c2:
-            T = st.text_input('Maturity Time: ')
-        with c3:
             S = st.text_input('Stock Price: ')
+        with c2:
+            K = st.text_input('Strike Price: ')
+        with c3:
+            T = st.text_input('Maturity Time: ')
         with c4:
+            sigma = st.text_input('volatility: ')
+        with c5:
             r = st.text_input('Discount rate: ')
+        with c6:
+            d = st.text_input('Dividen paid: ')
+
         button = st.button('Compute')
         if button:
-            st.write("In course of production")
+            print("CUOUOUCOCUOCUCOCUCOCUOC")
+            class Call_Put(Pricer):
+                pass
+            print(type(float(S)))
+            print(S)
+            pricer = Call_Put("MC.PA", float(S), float(K), float(T), float(sigma), float(r), float(d))
+            if option_c_or_p == 'Call':
+                st.write('Price for this option: ', pricer.CALL())
+            else:
+                st.write('Price for this option: ', pricer.PUT())
 
 elif add_selectbox == "Stocks Viz":
     def exists_variables():
