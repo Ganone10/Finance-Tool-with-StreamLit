@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import plotly.graph_objs as go
+import plotly.express as px
+from pricing_simulator import *
 from BSM import Pricer
 from fun_finance import *
 
@@ -9,7 +12,7 @@ st.title('Financial Dashboard')
 # search_button = st.button('Search')
 add_selectbox = st.sidebar.selectbox(
     "What option do you want to use?",
-    ("Pricing Simulator", "Stocks Viz")
+    ("Pricing Simulator", "Stocks Viz","Risk Management & Diversification","Commodities")
 )
 if add_selectbox == 'Pricing Simulator':
     option = st.selectbox('What kind of option whould you like to priced?', ('European', 'American'))
@@ -54,7 +57,6 @@ if add_selectbox == 'Pricing Simulator':
 
         button = st.button('Compute')
         if button:
-            print("CUOUOUCOCUOCUCOCUCOCUOC")
             class Call_Put(Pricer):
                 pass
             print(type(float(S)))
@@ -70,7 +72,7 @@ elif add_selectbox == "Stocks Viz":
         if "Adj_Close" not in st.session_state:
             print('0')
         else:
-            st.multiselect("Options: ", ['SMA', 'L&U BANDS', 'Other'],st.session_state["options"])
+            #st.multiselect("Options: ", ['SMA', 'L&U BANDS', 'Other'],st.session_state["options"])
             if 'SMA' in st.session_state["options"]:
                 Merged = pd.merge(st.session_state['Adj_Close'], st.sessions_state["SMA"], on="Date")
                 Merged = Merged.rename({'Adj Close_x': ticker, 'Adj Close_y': ticker + ' SMA 10'}, axis=1)
@@ -87,7 +89,7 @@ elif add_selectbox == "Stocks Viz":
     st.header("Stocks Viz")
     ticker = st.text_input("Enter a ticker")
     button = st.button('Enter')
-    exists_variables()
+    #exists_variables()
     if button:
         Adj_Close = get_stock_and_display(ticker)
         ## Compute for the widget options
@@ -111,14 +113,24 @@ elif add_selectbox == "Stocks Viz":
             if "LOG_RETURN" not in st.session_state:
                 st.session_state["LOG_RETURN"] = LOG_RETURN
 
-        store_variables()
+        #store_variables()
         #widgets = st.multiselect('What option do you want to add', ['SMA', 'UP&Lo BAND', 'Other'])
         options = st.multiselect("Options: ", ['SMA', 'L&U BANDS', 'Other'])
-        if "options" not in st.session_state:
-            st.session_state["options"]=options
-            print(options)
+        #if "options" not in st.session_state:
+        #    st.session_state["options"]=options
+        #    print(options)
         st.header('Stock Price evolution:')
-        st.line_chart(st.session_state["Adj_Close"], width=200, height=400, use_container_width=True)
+        #print(st.session_state["Adj_Close"].values)
+        #data = go.Scatter(x=st.session_state["Adj_Close"].index,y=st.session_state["Adj_Close"].values,marker_color='indianred', text="counts")
+        fig = px.line(
+            Adj_Close,  # Data Frame
+            x=Adj_Close.index,  # Columns from the data frame
+            y=Adj_Close.values,
+            title="Line frame"
+        )
+        #fig.update_traces(line_color="blue")
+        st.plotly_chart(fig)
+        #st.plotly_chart(data, width=200, height=400, use_container_width=True)
 
 
         # write the selected options
@@ -139,4 +151,5 @@ elif add_selectbox == "Stocks Viz":
         st.line_chart(LOG_RETURN, width=200, height=400, use_container_width=True)
         st.header('Monte Carlo simulation over 2 years:')
         MC = monte_carlo(Adj_Close)
+        print(MC.head(5))
         st.line_chart(MC, width=200, height=400, use_container_width=True)
