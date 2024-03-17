@@ -119,7 +119,6 @@ def vanilla_put_price(S, K, r, v, T):
 
 def monte_carlo(prices):
     returns = prices.pct_change()
-
     last_price = prices[-1]
 
     # Number of Simulations
