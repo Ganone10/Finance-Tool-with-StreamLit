@@ -14,11 +14,8 @@ st.title('Financial Dashboard')
 # search_button = st.button('Search')
 add_selectbox = st.sidebar.selectbox(
     "What option do you want to use?",
-<<<<<<< HEAD
     ("Portfolio simulation","Pricing Simulator", "Stocks Viz","Credit Analysis")
-=======
-    ("Pricing Simulator", "Stocks Viz","Risk Management & Diversification","Commodities")
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
+    #("Pricing Simulator", "Stocks Viz","Risk Management & Diversification","Commodities")
 )
 if add_selectbox == 'Pricing Simulator':
     option = st.selectbox('What kind of option whould you like to priced?', ('European', 'American'))
@@ -47,11 +44,8 @@ if add_selectbox == 'Pricing Simulator':
     elif option == 'European':
         option_c_or_p = st.selectbox('Call or Put', ('Call', 'Put'))
         st.header('Enter parameters for your option')
-<<<<<<< HEAD
         c1, c2, c3, c4 = st.columns(4)
-=======
         c1, c2, c3, c4, c5, c6 = st.columns(6)
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
         with c1:
             S = st.text_input('Stock Price: ')
         with c2:
@@ -78,7 +72,6 @@ if add_selectbox == 'Pricing Simulator':
                 st.write('Price for this option: ', pricer.PUT())
 
 elif add_selectbox == "Stocks Viz":
-<<<<<<< HEAD
     #def exists_variables():
         #if "Adj_Close" not in st.session_state:
         #    print("0")
@@ -97,7 +90,6 @@ elif add_selectbox == "Stocks Viz":
             #st.header('Monte Carlo simulation over 2 years:')
             #MC = monte_carlo(st.session_state["Adj_Close"])
             #st.line_chart(MC, width=200, height=400, use_container_width=True)
-=======
     def exists_variables():
         if "Adj_Close" not in st.session_state:
             print('0')
@@ -116,16 +108,12 @@ elif add_selectbox == "Stocks Viz":
             st.header('Monte Carlo simulation over 2 years:')
             MC = monte_carlo(st.session_state["Adj_Close"])
             st.line_chart(MC, width=200, height=400, use_container_width=True)
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
     st.header("Stocks Viz")
     ticker = st.text_input("Enter a ticker")
     button = st.button('Enter')
     #exists_variables()
-<<<<<<< HEAD
     if ticker != '':
         l_suggestions = search_company(ticker)
-=======
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
     if button:
 
     # Computation Stock charts, Log returns, Monte Carlo,
@@ -156,38 +144,13 @@ elif add_selectbox == "Stocks Viz":
             if "LOG_RETURN" not in st.session_state:
                 st.session_state["LOG_RETURN"] = LOG_RETURN
 
-<<<<<<< HEAD
-=======
-        #store_variables()
-        #widgets = st.multiselect('What option do you want to add', ['SMA', 'UP&Lo BAND', 'Other'])
-        options = st.multiselect("Options: ", ['SMA', 'L&U BANDS', 'Other'])
-        #if "options" not in st.session_state:
-        #    st.session_state["options"]=options
-        #    print(options)
-        st.header('Stock Price evolution:')
-        #print(st.session_state["Adj_Close"].values)
-        #data = go.Scatter(x=st.session_state["Adj_Close"].index,y=st.session_state["Adj_Close"].values,marker_color='indianred', text="counts")
-        fig = px.line(
-            Adj_Close,  # Data Frame
-            x=Adj_Close.index,  # Columns from the data frame
-            y=Adj_Close.values,
-            title="Line frame"
-        )
-        #fig.update_traces(line_color="blue")
-        st.plotly_chart(fig)
-        #st.plotly_chart(data, width=200, height=400, use_container_width=True)
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
+
 
         st.header('Stock Price evolution:')
         st.line_chart(Adj_Close, width=200, height=400, use_container_width=True)
         st.header('Return of the Stock:')
         st.line_chart(LOG_RETURN, width=200, height=400, use_container_width=True)
         st.header('Monte Carlo simulation over 2 years:')
-<<<<<<< HEAD
-=======
-        MC = monte_carlo(Adj_Close)
-        print(MC.head(5))
->>>>>>> e480b8e5921a6c68295e812acc7d7263d6db9ff1
         st.line_chart(MC, width=200, height=400, use_container_width=True)
 elif add_selectbox=="Portfolio simulation":
     st.header('Portfolio composition:')
