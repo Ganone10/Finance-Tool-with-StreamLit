@@ -43,7 +43,7 @@ This project aims to develop an interactive dashboard using Streamlit, a Python 
 3. Run the Streamlit server to launch the dashboard locally:
 
     ```
-    streamlit run app.py
+    streamlit run Pricing_Options.py
     ```
 
 4. Interact with the dashboard by opening the provided URL in your web browser. Explore the data, customize visualizations, and interact with machine learning models as needed.
